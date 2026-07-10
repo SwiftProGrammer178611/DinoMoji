@@ -1,6 +1,6 @@
 let board;
-let boardWidth = 750;
-let boardHeight = 250;
+let boardWidth = 1000;
+let boardHeight = 300;
 let context;
 
 let dinoWidth = 88;
@@ -31,7 +31,7 @@ let cactus3Img;
 
 let velocityX = -8;
 let velocityY = 0;
-let gravity = 0.08;
+let gravity = 0.03 ;
 
 let gameOver = false;
 let score = 0;
@@ -82,6 +82,14 @@ function update() {
         let cactus = cactusArray[i];
         cactus.x += velocityX;
         context.drawImage(cactus.img, cactus.x, cactus.y, cactus.width, cactus.height);
+
+        if (detectCollision(dino, cactus)){
+            gameOver=true;
+            dinoImg.src = "./img/dino-dead.png";
+            dinoImg.onload = function() {
+                context.drawImage(dinoImg, dino.x,dino.y, dino.width,dino.height);
+            }
+        }
     }
 }
 
@@ -131,4 +139,11 @@ function placeCactus() {
 
 
     }
+}
+
+function detectCollision(a, b){
+    return a.x < b.x + b.width && 
+            a.x + a.width > b.x &&
+            a.y < b.y + b.height &&
+            a.y+ a.height > b.y;
 }
