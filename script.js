@@ -1,10 +1,10 @@
 let board;
-let boardWidth = 1000;
-let boardHeight = 300;
+let boardWidth = 750;
+let boardHeight = 250;
 let context;
 
-let dinoWidth = 88;
-let dinoHeight = 94;
+let dinoWidth = 90;
+let dinoHeight = 100;
 let dinoX = 50;
 let dinoY = boardHeight-dinoHeight;
 let dinoImg;
@@ -31,7 +31,7 @@ let cactus3Img;
 
 let velocityX = -8;
 let velocityY = 0;
-let gravity = 0.03 ;
+let gravity = 0.3;
 
 let gameOver = false;
 let score = 0;
@@ -45,7 +45,7 @@ window.onload = function() {
     // context.fillRect(dino.x,dino.y,dino.width,dino.height);
 
     dinoImg = new Image();
-    dinoImg.src = "./img/dino.png"
+    dinoImg.src = "./img/stego.png"
     dinoImg.onload = function() {
         context.drawImage(dinoImg, dino.x, dino.y,dino.width,dino.height);
     }
@@ -57,7 +57,7 @@ window.onload = function() {
     cactus2Img.src = "./img/cactus2.png";
 
     cactus3Img = new Image();
-    cactus3Img.src = "./img/cactus3.png"
+    cactus3Img.src = "./img/stego.png"
 
     requestAnimationFrame(update);
     setInterval(placeCactus,1000)
@@ -91,6 +91,10 @@ function update() {
             }
         }
     }
+    context.fillStyle="black";
+    context.font = "20px courier";
+    score++;
+    context.fillText(score, 5, 20);
 }
 
 function moveDino(e){

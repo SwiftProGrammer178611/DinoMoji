@@ -4,6 +4,8 @@ body {
 }
 
 #board {
-    background-color: aquamarine;
-    border-bottom:1px black;
+    background-image: url('./img/desert.png');
+    background-size: cover;
+    background-position: center;
+    border-bottom:1px rgb(93, 0, 0);
 }
