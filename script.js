@@ -85,7 +85,15 @@ function update() {
     }
 }
 
+function moveDino(e){
+    if(gameOver){
+        return;
+    }
 
+    if((e.code === "Space") && dino.y==dinoY){
+        velocityY = -10;
+    }
+}
 
 function placeCactus() {
     if(gameOver){
