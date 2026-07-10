@@ -29,12 +29,19 @@ let cactus1Img;
 let cactus2Img;
 let cactus3Img;
 
+let velocityX = -8;
+let velocityY = 0;
+let gravity = 0.08;
+
+let gameOver = false;
+let score = 0;
+
 window.onload = function() {
     board = document.getElementById("board");
     board.height = boardHeight;
     board.width = boardWidth;
     context = board.getContext("2d");
-    // context.fillStyle="#cc0b0b";
+    // context.fillStyle="#977171";
     // context.fillRect(dino.x,dino.y,dino.width,dino.height);
 
     dinoImg = new Image();
@@ -47,22 +54,73 @@ window.onload = function() {
     cactus1Img.src = "./img/cactus1.png";
 
     cactus2Img = new Image();
-    cactus2Img = "./img/cactus2.png";
+    cactus2Img.src = "./img/cactus2.png";
 
     cactus3Img = new Image();
-    cactus3Img.src = "./img/cactus 4.g"
+    cactus3Img.src = "./img/cactus3.png"
 
     requestAnimationFrame(update);
-    setInterval(placeCactusm,1000)
+    setInterval(placeCactus,1000)
+
+    document.addEventListener("keydown",moveDino);
 
 }
 
 function update() {
+    if(gameOver){
+        return;
+    }
     requestAnimationFrame(update);
-
+    context.clearRect(0,0,board.width, board.height);
+    //for Mr.Dino
+    velocityY += gravity;
+    dino.y = Math.min(dino.y+velocityY, dinoY)
     context.drawImage(dinoImg, dino.x, dino.y,dino.width,dino.height);
+
+    //For Cactus drawing
+    for (let i=0; i<cactusArray.length; i++){
+        let cactus = cactusArray[i];
+        cactus.x += velocityX;
+        context.drawImage(cactus.img, cactus.x, cactus.y, cactus.width, cactus.height);
+    }
 }
 
-function placeCactus() {
 
+
+function placeCactus() {
+    if(gameOver){
+        return;
+    }
+    let cactus = {
+        img:null,
+        x:cactusX,
+        y:cactusY,
+        width:null,
+        height: cactusHeight
+    }
+
+    let placeCactusChance = Math.random();
+
+    if(placeCactusChance > 0.90) { 
+        cactus.img = cactus3Img;
+        cactus.width = cactu3sWidth;
+        cactusArray.push(cactus);
+
+    }
+    else if(placeCactusChance>0.70){
+        cactus.img = cactus2Img;
+        cactus.width = cactus2Width;
+        cactusArray.push(cactus);
+    }
+    else if(placeCactusChance > 0.50){
+        cactus.img = cactus1Img;
+        cactus.width = cactus1Width;
+        cactusArray.push(cactus);
+    }
+
+    if(cactusArray.length > 5){
+        cactusArray.shift(); //removes 1st element from array
+
+
+    }
 }
